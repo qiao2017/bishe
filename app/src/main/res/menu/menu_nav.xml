@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_call"
+            android:icon="@drawable/menu"
+            android:title="Call"/>
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/menu"
+            android:title="Call"/>
+        <item
+            android:id="@+id/nav_friends1"
+            android:icon="@drawable/menu"
+            android:title="Call"/>
+        <item
+            android:id="@+id/nav_call1"
+            android:icon="@drawable/menu"
+            android:title="Call"/>
+        <item
+            android:id="@+id/nav_call2"
+            android:icon="@drawable/menu"
+            android:title="Call"/>
+    </group>
+</menu>

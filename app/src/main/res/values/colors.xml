@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+        <color name="transparent_half">#a0000000</color>
+        <color name="transparent_half_orange">#a0ec6f1a</color>
+
+
+        <color name="top_bar_normal_bg">#ec6f1a</color>
+
+        <color name="bg_normal_gray">#e0e0e0</color>
+
+        <color name="line">#e0e0e0</color>
+        <color name="tv_gray_litter">#FAF0E6</color>
+        <color name="tv_gray_normal">#c0c0c0</color>
+        <color name="tv_gray_deep">#818181</color>
+        <color name="tv_gray_lit">#50b1b1b1</color>
+        <color name="tv_gray">@android:color/darker_gray</color>
+        <color name="tv_color">#ffffff</color>
+        <color name="list_glide">#50e0e0e0</color>
+        <color name="dividers">#1f000000</color>
+
+
+        <!-- 公司主题色 -->
+        <color name="orange_main">#ec6f1a</color>
+        <color name="orange_light">#ffd39b</color>
+        <color name="orange_deep">#ff6f3a</color>
+        <color name="orange_most">#C76114</color>
+        <color name="orange_litter">#80aa6136</color>
+
+
+        <color name="white">#fffffa</color>
+        <color name="gray">#cccccc</color>
+
+        <color name="text_avgpre">#ffecc50d</color>
+        <color name="drop_down_selected">#7B1FA2</color>
+        <color name="drop_down_unselected">#111111</color>
+        <color name="black_translucent">#50000000</color>
+        <!-- 浅灰色 -->
+        <color name="gray_light">#E7E7E7</color>
+
+        <color name="mask_color">#88888888</color>
+        <color name="main_bg">#10aaaaaa</color>
+        <color name="main_bg_userinfo">#10777777</color>
+        <color name="temple_header_color">#50888888</color>
+        <color name="check_bg">#f2f2f2</color>
+        <color name="un_press_color">#9C27B0</color>
+
+        <color name="color_back">#207579</color>
+        <color name="color_backnor">#7fdcd9</color>
+        <color name="color_dialog">#33B5E5</color>
+
+        <!--******  floating Action Button *********-->
+        <color name="black_semi_transparent">#B2000000</color>
+        <color name="background">#e5e5e5</color>
+        <color name="half_black">#808080</color>
+        <color name="white_pressed">#f1f1f1</color>
+        <color name="pink">#e91e63</color>
+        <color name="pink_pressed">#ec407a</color>
+        <color name="blue_semi_transparent">#805677fc</color>
+        <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
+
+        <!--****************  bottonnavigation   ********************-->
+
+        <color name="teal">#00796B</color>
+        <color name="te">#80FCE6C9</color>
+        <color name="brown">#8D6E63</color>
+        <color name="blue">#2196F3</color>
+        <color name="red">#FF0000</color>
+        <color name="grey">#607D8B</color>
+        <color name="orange">#F57C00</color>
+
+
+        <!--searchView-->
+        <color name="search_layover_bg">#50000000</color>
+        <color name="theme_primary">#2196F3</color>
+
+    <color name="color_fcc35e">#fcc35e</color>
+    <color name="color_grey_999999">#999999</color>
+    <color name="day_layout_bg">#f2f2f2</color>
+    <color name="main_color">#fb6730</color>
+    <color name="ts_green">#22e144</color>
+    <color name="text_color_fe4c29">#fe4c29</color>
+    <color name="expma_index_n1">#4795ff</color>
+    <color name="color_32a4fc">#32a4fc</color>
+    <color name="title_bg">#121418</color>
+    <color name="text_color_444444">#444444</color>
+    <color name="color_fb8e46">#fb8e46</color>
+    <color name="text_color_333333">#333333</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="bar_bg">#313648</color>
+    <color name="color_525252">#525252</color>
+    <color name="color_f15d2f">#f15d2f</color>
+    <color name="trader_gray_1">#A8A8A8</color>
+    <color name="color_2e2f34">#2e2f34</color>
+    <color name="color_split_line_cccccc">#cccccc</color>
+    <color name="serchactivity_color">#f6f6f6</color>
+    <color name="gray_4">#cfd6de</color>
+    <color name="color_dddddd">#dddddd</color>
+    <color name="defult_line_ededed">#ededed</color>
+    <color name="warning_add_price_up">#f35833</color>
+    <color name="red_1">#BF2819</color>
+    <color name="ma_day">#333333</color>
+    <color name="transparent">#00000000</color>
+    <color name="common_text_unable">#bbbbbb</color>
+    <color name="my_early_warning_blank">#cccccc</color>
+    <color name="color_66a8ff">#66a8ff</color>
+    <color name="color_fb682f">#fb682f</color>
+    <color name="cursor_color">#75829f</color>
+    <color name="watch_item_content">#999999</color>
+    <color name="my_early_warning_text_color">#191919</color>
+    <color name="common_text_color_black">#333333</color>
+    <color name="color_f53d3c">#f53d3c</color>
+    <color name="text_color_ff4c4e">#ff4c4e</color>
+    <color name="cngold_news_list_select">#f7f7f7</color>
+    <color name="search_list_name_color_day">#333333</color>
+    <color name="ts_detail_data_night2">#25292f</color>
+    <color name="text_color_434343">#434343</color>
+    <color name="direct_item_title">#000000</color>
+    <color name="news_list_bg_color1">#ffffff</color>
+    <color name="text_color_545454">#545454</color>
+    <color name="common_line_color_blue4">#1c85da</color>
+    <color name="color_fff1f1">#fff1f1</color>
+    <color name="text_color_b3ffffff">#b3ffffff</color>
+    <color name="color_fc7f82">#fc7f82</color>
+    <color name="warning_add_symbol_code">#A3A3A3</color>
+    <color name="defult_bg_f0f0f0">#f0f0f0</color>
+    <color name="common_title_bar_bg">#ffffff</color>
+    <color name="defult_bg_f6f6f6">#f6f6f6</color>
+    <color name="common_text_color_e5e5e5">#e5e5e5</color>
+    <color name="color_fdfb52">#fdfb52</color>
+    <color name="common_text_color_gray">#999999</color>
+    <color name="defult_bg_eeeeeb">#eeeeeb</color>
+    <color name="common_line_color_gray">#e3e3e3</color>
+    <color name="deep_gray">#666666</color>
+    <color name="common_line_color_blue3">#015299</color>
+    <color name="common_text_color_blue6">#85c5fd</color>
+    <color name="color_fa9441">#fa9441</color>
+    <color name="kchart_ma5">#cf6ff6</color>
+    <color name="home_news_title_color2">#333333</color>
+    <color name="data_period_line_gray">#e3e3e3</color>
+    <color name="dialog_button_normal">#fafafa</color>
+    <color name="color_f4f8fe">#f4f8fe</color>
+    <color name="common_text_color_yellow">#f0ab00</color>
+    <color name="ts_blue">#2f74e9</color>
+    <color name="color_black_ff666666">#666666</color>
+    <color name="color_ff4e51">#ff4e51</color>
+    <color name="period_minute_line_night">#1a212c</color>
+    <color name="color_fb5d3c">#fb5d3c</color>
+    <color name="color_5f5f5f">#5f5f5f</color>
+    <color name="ts_detail_data_night1">#2a3136</color>
+    <color name="A4">#7c879d</color>
+    <color name="search_list_code_color_day">#999999</color>
+    <color name="color_ececec">#ececec</color>
+    <color name="color_grey_666666">#666666</color>
+    <color name="color_fdfd52">#fdfd52</color>
+    <color name="text_color_232323">#232323</color>
+    <color name="home_below_line_color">#eaeef2</color>
+    <color name="color_10b95d">#10b95d</color>
+    <color name="common_text_color_blue">#005dae</color>
+    <color name="my_early_warning_text_red">#ff4c4f</color>
+    <color name="common_text_color_blue8">#2f74e9</color>
+    <color name="color_16c268">#16c268</color>
+    <color name="my_early_warning">#fb6730</color>
+    <color name="color_f1f1f1">#f1f1f1</color>
+    <color name="kchart_ma2">#f35833</color>
+    <color name="text_color_cccccc">#cccccc</color>
+    <color name="bg_color">#f3f3f3</color>
+    <color name="kchart_ma3">#00792c</color>
+    <color name="black">#000000</color>
+    <color name="data_down_gray">#f2f2f2</color>
+    <color name="text_color_e3e3e3">#e3e3e3</color>
+    <color name="wifi_refsh_solid">#002f74e9</color>
+    <color name="direct_each_normal">#EEF0F3</color>
+    <color name="text_color_e3edff">#e3edff</color>
+    <color name="ts_red">#fd0e08</color>
+    <color name="color_666aff">#666aff</color>
+    <color name="color_ff4c4f">#ff4c4f</color>
+    <color name="color_gray_d9d9d9">#d9d9d9</color>
+    <color name="my_early_warning_text_code">#a6a6a6</color>
+    <color name="color_fc744d">#fc744d</color>
+    <color name="color_fff3f3">#fff3f3</color>
+    <color name="color_f3fef8">#f3fef8</color>
+    <color name="common_text_color_white">#ffffff</color>
+    <color name="kchart_radiobutton_text_normal">#666666</color>
+    <color name="wifi_refsh_stroke">#2f74e9</color>
+    <color name="common_line_color_gray2">#f2f2f2</color>
+    <color name="text_color_d2d2d2">#d2d2d2</color>
+    <color name="defult_bg_f7f7f7">#f7f7f7</color>
+    <color name="transport">#00000000</color>
+    <color name="color_fec823">#fec823</color>
+    <color name="s3">#666666</color>
+    <color name="common_line_color_gray4">#cccccc</color>
+    <color name="gray_1">#949597</color>
+    <color name="color_bd3d1f">#bd3d1f</color>
+    <color name="common_bg_white">#ffffff</color>
+    <color name="color_202021">#202021</color>
+    <color name="data_period_line_red">#f35833</color>
+    <color name="quote_title_bg">#f2f2f2</color>
+    <color name="color_fe9d78">#fe9d78</color>
+    <color name="color_1dbf69">#1dbf69</color>
+    <color name="color_c6d4ec">#c6d4ec</color>
+    <color name="kchart_cursor_text_white">#ffffff</color>
+    <color name="radiobutton_bg_night_check">#121418</color>
+    <color name="text_color_f8f8f8">#f8f8f8</color>
+    <color name="dialog_button_select">#005dae</color>
+    <color name="text_color_191919">#191919</color>
+    <color name="color_ffd2c4">#ffd2c4</color>
+    <color name="color_black_333333">#333333</color>
+    <color name="color_blue_0888ff">#0888ff</color>
+    <color name="common_line_color_gray8">#f4f4f6</color>
+    <color name="ts_xy_color_day">#cccccc</color>
+    <color name="text_color_1e2023">#1e2023</color>
+    <color name="common_text_color_red">#f35833</color>
+    <color name="warning_add_price_down">#07a168</color>
+    <color name="news_list_bg_color">#dfdfdf</color>
+    <color name="kchart_cursor_text_gray">#cfd5e7</color>
+    <color name="etf_xy">#e3e3e3</color>
+    <color name="text_color_dcdcdc">#dcdcdc</color>
+    <color name="etf_line_x">#666666</color>
+    <color name="bg_line_color">#bfbfbf</color>
+    <color name="common_text_color_gray2">#666666</color>
+    <color name="common_line_color_blue2">#01539a</color>
+    <color name="perirod_bg_night">#292929</color>
+    <color name="perirod_bg_day">#ffffff</color>
+    <color name="kchart_ma4">#ffae00</color>
+    <color name="text_color_999999">#999999</color>
+    <color name="my_early_warning_back">#f6f6f6</color>
+    <color name="theme_bg">#f6f6f6</color>
+    <color name="common_text_color_gray4">#aaaaaa</color>
+    <color name="light_black">#333333</color>
+    <color name="common_text_check_normal">#000000</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_222222">#222222</color>
+    <color name="color_f9b6a1">#f9b6a1</color>
+    <color name="ts_detail_data_text_normal_night2">#ffffff</color>
+    <color name="im_list_select_hover">#dbdbdb</color>
+    <color name="color_191919">#191919</color>
+    <color name="quota_color_four_day">#999999</color>
+    <color name="defult_line_f0f0f0">#f0f0f0</color>
+    <color name="common_text_color_green">#07a168</color>
+    <color name="kchart_ma1">#4795ff</color>
+    <color name="transport_half">#7f000000</color>
+    <color name="color_aaaaaa_content_text">#ffaaaaaa</color>
+    <color name="color_999999">#999999</color>
+    <color name="common_line_color_gray3">#ededed</color>
+    <color name="radiobutton_bg_night_normal">#121418</color>
+    <color name="gray7">#c5c4c4</color>
+    <color name="defult_bg_eeeeee">#eeeeee</color>
+    <color name="etf_line_y">#999999</color>
+    <color name="expma_index_n2">#cf6ff6</color>
+    <color name="etf_title_gray">#333333</color>
+
+    <color name="book_title_mask">#80000000</color>
+</resources>
