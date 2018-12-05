@@ -67,7 +67,7 @@
                 android:layout_below="@+id/tv_user_name"
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="6dp"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/gray"
                 android:textSize="14sp" />
 
             <ImageView
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_comment_content"
-                android:src="@drawable/menu" />
+                android:src="@drawable/ic_like" />
 
             <TextView
                 android:id="@+id/tv_favorite_num"

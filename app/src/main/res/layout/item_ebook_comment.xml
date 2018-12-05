@@ -6,17 +6,6 @@
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_comment_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:text="评论"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="16sp"
-        android:visibility="gone" />
-
     <LinearLayout
         android:id="@+id/ll_comment"
         android:layout_width="match_parent"
@@ -70,15 +59,9 @@
                 android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:maxLines="5"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/gray"
                 android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/iv_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_comment_content"
-                android:src="@drawable/menu" />
 
             <TextView
                 android:id="@+id/tv_favorite_num"
@@ -89,10 +72,11 @@
                 android:layout_marginLeft="4dp"
                 android:layout_toRightOf="@+id/iv_favorite"
                 android:gravity="center_vertical"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/gray"
                 android:textSize="12sp" />
 
             <TextView
+                android:text="20180000"
                 android:id="@+id/tv_update_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,17 +88,4 @@
                 android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_more_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_horizontal"
-        android:padding="8dp"
-        android:text="更多评论?条"
-        android:textColor="@color/gray"
-        android:textSize="14sp"
-        android:visibility="gone" />
 </LinearLayout>

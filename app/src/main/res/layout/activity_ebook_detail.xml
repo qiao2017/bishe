@@ -44,7 +44,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="bottom"
                 android:background="@color/book_title_mask" />
 
@@ -61,5 +61,13 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/recycler_content" />
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/book_detail_fab_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
+        app:backgroundTint="@color/gray"
+        android:src="@drawable/ic_like"
+        android:elevation="8dp"/>
 </android.support.design.widget.CoordinatorLayout>

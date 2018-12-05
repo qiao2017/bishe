@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"/>
+    <LinearLayout
+        android:id="@+id/fragment_book_comment_all"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/fragment_book_comment_all_button_left"
+            android:text="上一页"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:background="#80CCCCCC"/>
+
+        <Button
+            android:id="@+id/fragment_book_comment_all_button_right"
+            android:text="下一页"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#80CCCCCC"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_book_comment_left"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/fragment_book_comment_left_button"
+            android:text="上一页"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#80CCCCCC"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_book_comment_right"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/fragment_book_comment_right_button"
+            android:text="下一页"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#80CCCCCC"/>
+    </LinearLayout>
+
+</LinearLayout>

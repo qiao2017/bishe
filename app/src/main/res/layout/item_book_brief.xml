@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="40dp"
+        android:text="简介"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/item_book_brief_brief"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="简介简介简介"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
