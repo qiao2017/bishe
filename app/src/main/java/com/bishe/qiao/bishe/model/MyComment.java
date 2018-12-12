@@ -9,6 +9,7 @@ public class MyComment {
     private String bookUrl;
     private String author;
     private String publish;
+    private String commentTime;
 
     public int getCommentId() {
         return commentId;
@@ -72,5 +73,13 @@ public class MyComment {
 
     public void setPublish(String publish) {
         this.publish = publish;
+    }
+
+    public String getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(String commentTime) {
+        this.commentTime = commentTime;
     }
 }

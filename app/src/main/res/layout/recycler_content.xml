@@ -58,6 +58,7 @@
             android:scrollbarStyle="outsideOverlay">
         </android.support.v7.widget.RecyclerView>
         <TextView
+            android:id="@+id/book_comment_look_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="查看更多"

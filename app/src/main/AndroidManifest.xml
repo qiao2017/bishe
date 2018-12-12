@@ -27,6 +27,7 @@
         <activity
             android:name=".activity.SearchResultActivity"
             android:theme="@style/BookDetailActivityTheme" />
+        <activity android:name=".activity.BookCommentAllActivity"></activity>
     </application>
 
 </manifest>

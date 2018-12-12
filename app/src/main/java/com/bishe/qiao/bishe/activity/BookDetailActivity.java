@@ -1,5 +1,6 @@
 package com.bishe.qiao.bishe.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -7,10 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bishe.qiao.bishe.R;
@@ -34,6 +35,7 @@ public class BookDetailActivity extends AppCompatActivity {
     RecyclerView recyclerView1;
     RecyclerView recyclerView2;
     FloatingActionButton fab;
+    TextView bookCommentLookMore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +65,16 @@ public class BookDetailActivity extends AppCompatActivity {
 
 
     protected void initEvents() {
-        Log.d("NNNNNNNNNNNN", "NNNNNNNNNNNNNNNNNNNN");
         bookImgBig = findViewById(R.id.iv_book_bg);
         bookImgSmall = findViewById(R.id.iv_book_img);
+        bookCommentLookMore = findViewById(R.id.book_comment_look_more);
+        bookCommentLookMore.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BookDetailActivity.this, BookCommentAllActivity.class);
+                startActivity(intent);
+            }
+        });
         String bookUrl = "http://bookbk.img.ireader.com/group6/M00/BB/CD/CmQUNlhGaf6ENNp0AAAAAMjGF3s094589847.jpg?v=RxWOQZ7V";
         Glide.with(this)
                 .load(bookUrl)
