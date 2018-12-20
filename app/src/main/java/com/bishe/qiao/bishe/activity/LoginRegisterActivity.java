@@ -24,4 +24,25 @@ public class LoginRegisterActivity extends AppCompatActivity {
         transaction.replace(R.id.login_register_fragment, fragment);
         transaction.commit();
     }
+
+
+    /*
+    @Override
+    public void startActivity(Intent intent) {
+        if (getIntent().getExtras() != null && getIntent().getExtras().getString("className") != null) {
+            String className = getIntent().getExtras().getString("className");
+            getIntent().removeExtra("className");
+            if (className != null && !className.equals(this.getClass().getName())) {
+                try {
+                    ComponentName componentName = new ComponentName(this, Class.forName(className));
+                    startActivity(getIntent().setComponent(componentName));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        finish();
+    }
+
+    */
 }

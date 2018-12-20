@@ -57,10 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="按钮"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="as1eyveuibion"/>
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"

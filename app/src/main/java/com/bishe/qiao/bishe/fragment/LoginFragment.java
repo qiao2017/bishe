@@ -1,7 +1,6 @@
 package com.bishe.qiao.bishe.fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,20 +13,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bishe.qiao.bishe.R;
+import com.bishe.qiao.bishe.activity.MainActivity;
+import com.bishe.qiao.bishe.util.MyApplication;
 import com.bishe.qiao.bishe.util.SharedPreferencesUtil;
+import com.bishe.qiao.bishe.util.Status;
+import com.bishe.qiao.bishe.util.Util;
 
 import java.io.IOException;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginFragment extends Fragment {
+    private TextView userName;
+    private TextView password;
     private Button button;
     @Nullable
     @Override
@@ -65,9 +73,9 @@ public class LoginFragment extends Fragment {
                 ).start();*/
             }
         });
-    }
-    private void showResponseData(final String response){
 
+        userName = getActivity().findViewById(R.id.fragment_login_user_name);
+        password = getActivity().findViewById(R.id.fragment_login_password);
     }
 
     private void replaceFragment(Fragment fragment){
@@ -76,16 +84,24 @@ public class LoginFragment extends Fragment {
         transaction.replace(R.id.login_register_fragment, fragment);
         transaction.commit();
     }
-    private void login(final String userName, final String password){
+    private void login(){
+        String userNameTxt = userName.getText().toString().trim();
+        String passwordTxt = password.getText().toString().trim();
+//        if(StringUtils.isEmpty("") || )
         OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = new FormBody.Builder()
+                .add("userName", userNameTxt)
+                .add("password", passwordTxt)
+                .build();
         Request request = new Request.Builder()
-                .url("http://120.79.59.91:8080")
+                .url(Util.baseUrl + "login")
+                .post(requestBody)
                 .build();
         Response response = null;
         try {
             response = client.newCall(request).execute();
         } catch (IOException e) {
-            Log.d("MMMMMMMMMMM", "出现异常");
+
         }
         String responseDate = null;
         try {
@@ -93,12 +109,18 @@ public class LoginFragment extends Fragment {
         } catch (IOException e) {
             Log.d("MMMMM", "IOException");
         }
-        Log.d("MMMMM", responseDate);
-        JSONObject jobj = JSON.parseObject(responseDate);
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE).edit();
+        JSONObject res = JSON.parseObject(responseDate);
+/*        SharedPreferences.Editor editor = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE).edit();
         editor.putString("token", jobj.getString("token"));
-        editor.apply();
-        new SharedPreferencesUtil(getActivity(), "data").putValues(new SharedPreferencesUtil.ContentValue("token", "123"));
+        editor.apply();*/
+        String status = res.getString("status");
+        if(Status.OK.equals(status)){
+            new SharedPreferencesUtil(getActivity(), "data").putValues(new SharedPreferencesUtil.ContentValue("token", res.get("token")));
+            Intent intent = new Intent(MyApplication.getContext(), MainActivity.class);
+            startActivity(intent);
+        }else{
+            //TODO
+        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

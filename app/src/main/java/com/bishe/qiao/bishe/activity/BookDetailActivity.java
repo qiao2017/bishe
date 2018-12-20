@@ -112,6 +112,8 @@ public class BookDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MyApplication.getContext(), "添加评论", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BookDetailActivity.this, CommentActivity.class);
+                startActivity(intent);
             }
         });
     }

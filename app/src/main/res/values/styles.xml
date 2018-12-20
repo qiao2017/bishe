@@ -14,4 +14,17 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="myratingbar"
+        parent="@android:style/Widget.RatingBar">
+
+
+        <item
+            name="android:progressDrawable">
+            @drawable/myratingbar
+        </item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:maxHeight">40dip</item>
+    </style>
+
 </resources>

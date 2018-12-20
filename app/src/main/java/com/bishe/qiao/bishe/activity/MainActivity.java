@@ -1,7 +1,6 @@
 package com.bishe.qiao.bishe.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +23,6 @@ import com.jjhcps.jysb.pagerslidingtabstriplib.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends BaseActivity {
     private String[] mTitles = new String[]{"热点", "说说", "关注", "竞猜", "第五"};
@@ -86,66 +82,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*        LayoutInflater inflater=getLayoutInflater();
-        View view1 = inflater.inflate(R.layout.fragment_main_home, null);
-        TextView textView = view1.findViewById(R.id.fragment_layout_home_text_view);
-        textView.setText("zhangshan");
-        View view2 = inflater.inflate(R.layout.fragment_main_home,null);
-        View view3 = inflater.inflate(R.layout.fragment_main_home, null);
-
-        viewList = new ArrayList<>();// 将要分页显示的View装入数组中
-        viewList.add(view1);
-        viewList.add(view2);
-        viewList.add(view3);
-
-
-        PagerAdapter pagerAdapter = new PagerAdapter() {
-
-            @Override
-            public boolean isViewFromObject(View arg0, Object arg1) {
-                // TODO Auto-generated method stub
-                return arg0 == arg1;
-            }
-
-            @Override
-            public int getCount() {
-                // TODO Auto-generated method stub
-                return viewList.size();
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position,
-                                    Object object) {
-                // TODO Auto-generated method stub
-                container.removeView(viewList.get(position));
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                // TODO Auto-generated method stub
-                container.addView(viewList.get(position));
-
-
-                return viewList.get(position);
-            }
-        };
-
-
-        viewPager.setAdapter(pagerAdapter);*/
-        Drawable drawable = null;
-        CircleImageView ddd = null;
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu);
@@ -169,7 +105,6 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
                 intent.putExtra("","");
-                Log.d("aaaaa", "aaaaaaaaa");
                 startActivity(intent);
             }
         });
@@ -189,33 +124,6 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
-
-/*
-    public class MyPagerAdapter extends FragmentPagerAdapter {
-
-        private final String[] TITLES = { "Categories", "Home", "Top Paid", "Top Free", "Top Grossing", "Top New Paid",
-                "Top New Free", "Trending" };
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return TITLES[position];
-        }
-
-        @Override
-        public int getCount() {
-            return TITLES.length;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
-        }
-
-    }*/
 
     class Adapter extends FragmentPagerAdapter {
         private List<Fragment> mFragments = new ArrayList<>();
