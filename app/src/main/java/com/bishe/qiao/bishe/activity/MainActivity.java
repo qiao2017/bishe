@@ -1,6 +1,8 @@
 package com.bishe.qiao.bishe.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,15 +18,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.fragment.HomeFragment;
+import com.bishe.qiao.bishe.util.MyApplication;
+import com.bumptech.glide.Glide;
 import com.jjhcps.jysb.pagerslidingtabstriplib.PagerSlidingTabStrip;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
+    public ProgressDialog progressDialog;
+    private JSONObject jobj;
     private String[] mTitles = new String[]{"热点", "说说", "关注", "竞猜", "第五"};
     private String[] allTitles = new String[]{"第一allTitlesallTitles", "第二allTitlesallTitles", "第三allTitlesallTitles", "第四allTitlesallTitles", "第五allTitlesallTitles", "第六allTitlesallTitles", "第七", "第八", "第九", "第十"};
     private List<Fragment> fragments;
@@ -34,7 +43,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        showProgressDialog();
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         mainDrawLayout = findViewById(R.id.main_draw_layout);
@@ -66,8 +75,6 @@ public class MainActivity extends BaseActivity {
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-//                fragments.remove(4);
             }
 
             @Override
@@ -84,8 +91,14 @@ public class MainActivity extends BaseActivity {
 
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.menu);
-
+            ImageView imageView = null;
+//            Drawable drawable = ContextCompat.getDrawable(MyApplication.getContext(), imageView);
+            Glide.with(MyApplication.getContext()).load("").into(imageView);
+//            TODO
+            imageView.setMaxHeight(100);
+            imageView.setMaxWidth(100);
+            Drawable drawable = imageView.getDrawable();
+            actionBar.setHomeAsUpIndicator(drawable);
         }
 
         navView.setCheckedItem(R.id.nav_call);
@@ -154,6 +167,19 @@ public class MainActivity extends BaseActivity {
                 return allTitles[position];
             }
             return "";
+        }
+    }
+    protected void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(MyApplication.getContext());
+            progressDialog.setMessage("正在加载···");
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+    }
+    protected void closeProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
         }
     }
 }

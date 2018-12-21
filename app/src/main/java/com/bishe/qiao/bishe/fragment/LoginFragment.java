@@ -1,8 +1,11 @@
 package com.bishe.qiao.bishe.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,7 +23,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.activity.MainActivity;
-import com.bishe.qiao.bishe.util.MyApplication;
 import com.bishe.qiao.bishe.util.SharedPreferencesUtil;
 import com.bishe.qiao.bishe.util.Status;
 import com.bishe.qiao.bishe.util.Util;
@@ -34,6 +36,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginFragment extends Fragment {
+    public ProgressDialog progressDialog;
     private TextView userName;
     private TextView password;
     private Button button;
@@ -48,14 +51,23 @@ public class LoginFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         button = getActivity().findViewById(R.id.fragment_login_button);
+
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                RegisterFragment fragment = new RegisterFragment();
+                showProgressDialog();
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                login();
+                            }
+                        }
+                ).start();
+//                RegisterFragment fragment = new RegisterFragment();
 //                FrameLayout frameLayout = getActivity().findViewById(R.id.login_register_fragment);
-                replaceFragment(fragment);
+//                replaceFragment(fragment);
 /*
-                Toast.makeText(getActivity(), "登录", Toast.LENGTH_SHORT).show();
                 *//*Intent intent = new Intent(getActivity(), LoginRegisterActivity.class);
                 startActivity(intent);*//*
 *//*                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED){
@@ -84,10 +96,30 @@ public class LoginFragment extends Fragment {
         transaction.replace(R.id.login_register_fragment, fragment);
         transaction.commit();
     }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+            String status = data.getString("status");
+            if(Status.OK.equals(status)){
+                closeProgressDialog();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        }
+    };
+
+
     private void login(){
         String userNameTxt = userName.getText().toString().trim();
         String passwordTxt = password.getText().toString().trim();
-//        if(StringUtils.isEmpty("") || )
+/*        if(StringUtils.isEmpty(userNameTxt) || StringUtils.isEmpty(passwordTxt)){
+//TODO
+            return;
+        }*/
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("userName", userNameTxt)
@@ -107,17 +139,18 @@ public class LoginFragment extends Fragment {
         try {
             responseDate = response.body().string();
         } catch (IOException e) {
-            Log.d("MMMMM", "IOException");
+            //TODO
         }
         JSONObject res = JSON.parseObject(responseDate);
-/*        SharedPreferences.Editor editor = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE).edit();
-        editor.putString("token", jobj.getString("token"));
-        editor.apply();*/
         String status = res.getString("status");
+        Log.e("\n\nMMMMMMMMMMMM", status);
         if(Status.OK.equals(status)){
-            new SharedPreferencesUtil(getActivity(), "data").putValues(new SharedPreferencesUtil.ContentValue("token", res.get("token")));
-            Intent intent = new Intent(MyApplication.getContext(), MainActivity.class);
-            startActivity(intent);
+            new SharedPreferencesUtil(getActivity(), "data").putValues(new SharedPreferencesUtil.ContentValue("token", res.getString("token")));
+            Message msg = new Message();
+            Bundle data = new Bundle();
+            data.putString("status",status);
+            msg.setData(data);
+            handler.sendMessage(msg);
         }else{
             //TODO
         }
@@ -133,6 +166,20 @@ public class LoginFragment extends Fragment {
                 }
                 break;
             default:
+        }
+    }
+
+    protected void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("正在加载···");
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+    }
+    protected void closeProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
         }
     }
 }
