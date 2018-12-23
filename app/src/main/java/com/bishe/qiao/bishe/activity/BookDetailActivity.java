@@ -36,37 +36,25 @@ public class BookDetailActivity extends AppCompatActivity {
     RecyclerView recyclerView2;
     FloatingActionButton fab;
     TextView bookCommentLookMore;
+    TextView addComment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ebook_detail);
         initEvents();
-/*        Intent intent = getIntent();
-        String bookName = intent.getStringExtra("bookName");
-        String bookUrl = intent.getStringExtra("bookUrl");
-        Toolbar toolbar = findViewById(R.id.activity_book_detail_tool_bar);
-        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.activity_book_detail_coll_tool_bar);
-        ImageView bookImg = findViewById(R.id.activity_book_detail_book_img);
-        TextView bookContentTextView = findViewById(R.id.activity_book_detail_text_view_book);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        collapsingToolbarLayout.setTitle(bookName);
-        collapsingToolbarLayout.setTitleEnabled(false);
-        Glide.with(this).load(bookUrl).into(bookImg);
-        String bookContent = generateBookContent(bookName);
-        bookContentTextView.setText(bookContent);*/
     }
-
-
-
-
 
     protected void initEvents() {
         bookImgBig = findViewById(R.id.iv_book_bg);
         bookImgSmall = findViewById(R.id.iv_book_img);
+        addComment = findViewById(R.id.book_comment_add_comment);
+        addComment.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BookDetailActivity.this, CommentActivity.class);
+                startActivity(intent);
+            }
+        });
         bookCommentLookMore = findViewById(R.id.book_comment_look_more);
         bookCommentLookMore.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,7 +86,6 @@ public class BookDetailActivity extends AppCompatActivity {
         ItemEbookCommentAdapter adapter1 = new ItemEbookCommentAdapter(getBookComment());
         recyclerView1.setAdapter(adapter1);
 
-
         recyclerView2 = findViewById(R.id.book_detail_recycler_2);
         LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(BookDetailActivity.this);
         mLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -106,14 +93,12 @@ public class BookDetailActivity extends AppCompatActivity {
         ItemBookSeriesCeilAdapter adapter2 = new ItemBookSeriesCeilAdapter(getBookSeriesCeil());
         recyclerView2.setAdapter(adapter2);
 
-
         fab = findViewById(R.id.book_detail_fab_fab);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(MyApplication.getContext(), "添加评论", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(BookDetailActivity.this, CommentActivity.class);
-                startActivity(intent);
+                Toast.makeText(MyApplication.getContext(), "已收藏", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -145,7 +130,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
     private String generateBookContent(String bookName){
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i< 5000; i++){
+        for(int i = 0; i< 500; i++){
             sb.append(bookName);
         }
         return sb == null ? "null" : sb.toString();

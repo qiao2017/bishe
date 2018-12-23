@@ -2,7 +2,6 @@ package com.bishe.qiao.bishe.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,20 +9,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.fragment.HomeFragment;
 import com.bishe.qiao.bishe.util.MyApplication;
-import com.bumptech.glide.Glide;
 import com.jjhcps.jysb.pagerslidingtabstriplib.PagerSlidingTabStrip;
 
 import org.json.JSONObject;
@@ -50,8 +50,6 @@ public class MainActivity extends BaseActivity {
         NavigationView navView = findViewById(R.id.activity_main_nav_view);
 
         ActionBar actionBar = getSupportActionBar();
-
-
 
         Adapter adapter = new Adapter(getSupportFragmentManager(),mTitles);
         PagerSlidingTabStrip tabs = findViewById(R.id.tabs);
@@ -91,14 +89,7 @@ public class MainActivity extends BaseActivity {
 
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            ImageView imageView = null;
-//            Drawable drawable = ContextCompat.getDrawable(MyApplication.getContext(), imageView);
-            Glide.with(MyApplication.getContext()).load("").into(imageView);
-//            TODO
-            imageView.setMaxHeight(100);
-            imageView.setMaxWidth(100);
-            Drawable drawable = imageView.getDrawable();
-            actionBar.setHomeAsUpIndicator(drawable);
+            actionBar.setHomeAsUpIndicator(R.drawable.menu);
         }
 
         navView.setCheckedItem(R.id.nav_call);
@@ -129,13 +120,30 @@ public class MainActivity extends BaseActivity {
             case android.R.id.home:
                 mainDrawLayout.openDrawer(GravityCompat.START);
                 break;
+
         }
         return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_search);
+        SearchView searchView = (SearchView)MenuItemCompat.getActionView(searchItem);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Toast.makeText(MyApplication.getContext(), "搜索", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        return true;
     }
 
     class Adapter extends FragmentPagerAdapter {
@@ -171,7 +179,7 @@ public class MainActivity extends BaseActivity {
     }
     protected void showProgressDialog(){
         if(progressDialog == null){
-            progressDialog = new ProgressDialog(MyApplication.getContext());
+            progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("正在加载···");
             progressDialog.setCanceledOnTouchOutside(false);
         }
@@ -182,4 +190,6 @@ public class MainActivity extends BaseActivity {
             progressDialog.dismiss();
         }
     }
+
+
 }

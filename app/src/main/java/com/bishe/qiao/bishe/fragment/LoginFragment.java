@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.activity.MainActivity;
-import com.bishe.qiao.bishe.util.SharedPreferencesUtil;
 import com.bishe.qiao.bishe.util.Status;
 import com.bishe.qiao.bishe.util.Util;
 
@@ -143,9 +141,10 @@ public class LoginFragment extends Fragment {
         }
         JSONObject res = JSON.parseObject(responseDate);
         String status = res.getString("status");
-        Log.e("\n\nMMMMMMMMMMMM", status);
         if(Status.OK.equals(status)){
-            new SharedPreferencesUtil(getActivity(), "data").putValues(new SharedPreferencesUtil.ContentValue("token", res.getString("token")));
+            String token = res.getString("token");
+            Status.token = token;
+//            new SharedPreferencesUtil(getActivity(), "data").putValues(new SharedPreferencesUtil.ContentValue("token", res.getString("token")));
             Message msg = new Message();
             Bundle data = new Bundle();
             data.putString("status",status);

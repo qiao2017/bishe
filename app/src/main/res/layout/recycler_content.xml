@@ -65,6 +65,15 @@
             android:textSize="20sp"
             android:textColor="@color/blue"
             android:gravity="center_horizontal"/>
+        <TextView
+            android:paddingTop="30dp"
+            android:id="@+id/book_comment_add_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我要评论"
+            android:textSize="20sp"
+            android:textColor="@color/blue"
+            android:gravity="center_horizontal"/>
         <View
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
