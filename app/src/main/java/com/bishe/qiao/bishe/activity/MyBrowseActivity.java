@@ -17,42 +17,37 @@ import com.bishe.qiao.bishe.myadapter.BookAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFavoriteActivity extends AppCompatActivity {
+public class MyBrowseActivity extends AppCompatActivity {
     public static String res;
     private List<ListBook> bookList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_favorite);
+        setContentView(R.layout.activity_my_browse);
         Intent intent = getIntent();
         res = intent.getStringExtra("res");
-        RecyclerView recyclerView = findViewById(R.id.my_favorite_recycler);
+        RecyclerView recyclerView = findViewById(R.id.my_browse_recycler);
         initBooks();
         BookAdapter adapter = new BookAdapter(bookList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
 
-
-
-
-        Toolbar toolbar = findViewById(R.id.my_favorite_toolbar);
+        Toolbar toolbar = findViewById(R.id.my_browse_toolbar);
         //设置toolbar
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true); //设置返回键可用
-            actionBar.setTitle("我的收藏");
+            actionBar.setTitle("我的浏览记录");
         }
     }
 
-
     private void initBooks(){
         bookList.clear();
-        JSONArray jarr = JSONObject.parseObject(res).getJSONArray("myFavorite");
+        JSONArray jarr = JSONObject.parseObject(res).getJSONArray("myBrowse");
         for(int i = 0; i<jarr.size(); i++){
             ListBook book = new ListBook();
             JSONObject jobjBook = JSONObject.parseObject(jarr.getString(i));

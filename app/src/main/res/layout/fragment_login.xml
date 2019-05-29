@@ -110,6 +110,16 @@
         android:background="@drawable/login"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_normal"/>
+    <TextView
+        android:textColor="@color/blue"
+        android:layout_gravity="right"
+        android:id="@+id/fragment_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="没有账户？点我注册"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="48dp"
+        android:gravity="right"/>
 
 
 </LinearLayout>

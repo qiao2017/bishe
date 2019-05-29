@@ -69,5 +69,5 @@
         android:layout_margin="20dp"
         app:backgroundTint="#80C0C0C0"
         android:src="@drawable/star_empty"
-        android:elevation="8dp"/>
+        android:elevation="2dp"/>
 </android.support.design.widget.CoordinatorLayout>

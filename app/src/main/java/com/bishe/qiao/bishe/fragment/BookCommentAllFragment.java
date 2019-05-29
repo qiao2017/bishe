@@ -10,31 +10,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.model.BookComment;
 import com.bishe.qiao.bishe.myadapter.ItemEbookCommentAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BookCommentAllFragment extends Fragment{
     List<BookComment> bookComments;
-//    private List<ListBook> bookList = new ArrayList<>();
-    //    private List<Book> bookList = new ArrayList<>();
-    private String bookUrl = "http://book.img.ireader.com/group6/M00/07/A8/CmQUN1usd9-ECydsAAAAAP3oY4M872146629.jpg?v=94TE-RrC&t=CmQUN1usePY.";
+    public static String res;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_book_comment_all, container, false);
-        String msg = getArguments().getString("message");
-//        initBooks();
-/*        RecyclerView recyclerView = view.findViewById(R.id.fragment_main_home_recycler_view);
-        BookAdapter adapter = new BookAdapter(bookList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));*/
+        res = getArguments().getString("message");
+
         RecyclerView recyclerView = view.findViewById(R.id.fragment_book_comment_all_recycler_view);
-        ItemEbookCommentAdapter adapter = new ItemEbookCommentAdapter(getBookComment());
+        initBookComments();
+        ItemEbookCommentAdapter adapter = new ItemEbookCommentAdapter(bookComments);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         return view;
@@ -45,21 +44,6 @@ public class BookCommentAllFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
     }
 
-/*
-    private void initBooks(){
-        bookList.clear();
-        for(int i = 0; i<50; i++){
-            ListBook book = new ListBook();
-            book.setAuthor("张三");
-            book.setBookScore("3.5");
-            book.setBookHeadUrl("http://bookbk.img.ireader.com/group6/M00/BB/CD/CmQUNlhGaf6ENNp0AAAAAMjGF3s094589847.jpg?v=RxWOQZ7V");
-            book.setBookName("斗破苍穹");
-            book.setContent("CCCCCCCC简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介");
-            book.setPublish("PPPPPPPPPPPPP");
-            bookList.add(book);
-        }
-    }*/
-
     public static final BookCommentAllFragment newInstance(String text) {
         BookCommentAllFragment fragment = new BookCommentAllFragment();
         Bundle bundle = new Bundle();
@@ -68,17 +52,27 @@ public class BookCommentAllFragment extends Fragment{
         return fragment ;
     }
 
-    private List<BookComment> getBookComment(){
-        List<BookComment> bookComments = new ArrayList<>();
-        for (int i = 0; i < 8; i++){
+    private void initBookComments(){
+        JSONArray jarr = JSONObject.parseObject(res).getJSONObject("comments").getJSONArray("comments");
+        bookComments = new ArrayList<>();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        for (int i = 0; i < jarr.size(); i++){
+            JSONObject jobj = jarr.getJSONObject(i);
             BookComment bookComment = new BookComment();
-            bookComment.setUserHead("http://q.qlogo.cn/qqapp/100467046/A2016D2246C0ECB6F26A540276A9E3A8/40");
-            bookComment.setUserName("李四"+i);
-            bookComment.setScore("2.7");
-            bookComment.setContent("hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello");
+            bookComment.setUserHead(jobj.getString("headUrl"));
+            bookComment.setUserName(jobj.getString("nickName"));
+            bookComment.setScore(jobj.getString("stars"));
+            bookComment.setContent(jobj.getString("content"));
+            Long time = jobj.getLong("commentTime");
+            Date date;
+            if(time == null){
+                date = new Date();
+            }else{
+                date = new Date(time);
+            }
+            bookComment.setTime(df.format(date));
             bookComments.add(bookComment);
         }
-        return  bookComments;
     }
 
 }

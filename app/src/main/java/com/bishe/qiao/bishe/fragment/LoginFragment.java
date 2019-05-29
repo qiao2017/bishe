@@ -1,5 +1,6 @@
 package com.bishe.qiao.bishe.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,8 @@ import com.bishe.qiao.bishe.activity.MainActivity;
 import com.bishe.qiao.bishe.util.Status;
 import com.bishe.qiao.bishe.util.Util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -36,8 +40,11 @@ import okhttp3.Response;
 public class LoginFragment extends Fragment {
     public ProgressDialog progressDialog;
     private TextView userName;
+    private TextView registerFrag;
     private TextView password;
     private Button button;
+    String userNameTxt;
+    String passwordTxt;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,105 +61,103 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showProgressDialog();
-                new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                login();
-                            }
-                        }
-                ).start();
-//                RegisterFragment fragment = new RegisterFragment();
-//                FrameLayout frameLayout = getActivity().findViewById(R.id.login_register_fragment);
-//                replaceFragment(fragment);
-/*
-                *//*Intent intent = new Intent(getActivity(), LoginRegisterActivity.class);
-                startActivity(intent);*//*
-*//*                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 1);
-                }else{
-                    Toast.makeText(getActivity(), "有权限", Toast.LENGTH_SHORT).show();
-                }*//*
-                new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                login("111", "111");
-                            }
-                        }
-                ).start();*/
+                login();
             }
         });
 
         userName = getActivity().findViewById(R.id.fragment_login_user_name);
         password = getActivity().findViewById(R.id.fragment_login_password);
+        registerFrag = getActivity().findViewById(R.id.fragment_register);
+        registerFrag.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                replaceFragment();
+            }
+        });
     }
-
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.login_register_fragment, fragment);
+        transaction.replace(R.id.login_register_fragment, new RegisterFragment());
         transaction.commit();
     }
-
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            closeProgressDialog();
             Bundle data = msg.getData();
-            String status = data.getString("status");
-            if(Status.OK.equals(status)){
-                closeProgressDialog();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+            String res = data.getString("res", null);
+            switch(msg.what){
+                case 100:
+                    Toast.makeText(getContext(), "网络错误！请稍后重试", Toast.LENGTH_SHORT).show();
+                    break;
+                case 0://登陆成功
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("res", res);
+                    Log.d("MMMMMMMMM", res);
+                    startActivity(intent);
+                    getActivity().finish();
+                    break;
+                case 1:
+                    JSONObject jobj = JSON.parseObject(res);
+                    Toast.makeText(getContext(), jobj.getString("error") + "！请检查后重试", Toast.LENGTH_SHORT).show();
+                    break;
             }
+
         }
     };
 
 
     private void login(){
-        String userNameTxt = userName.getText().toString().trim();
-        String passwordTxt = password.getText().toString().trim();
-/*        if(StringUtils.isEmpty(userNameTxt) || StringUtils.isEmpty(passwordTxt)){
-//TODO
+        userNameTxt = userName.getText().toString().trim();
+        passwordTxt = password.getText().toString().trim();
+        if(StringUtils.isEmpty(userNameTxt) || StringUtils.isEmpty(passwordTxt)){
+            Toast.makeText(getContext(), "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+            closeProgressDialog();
             return;
-        }*/
-        OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = new FormBody.Builder()
-                .add("userName", userNameTxt)
-                .add("password", passwordTxt)
-                .build();
-        Request request = new Request.Builder()
-                .url(Util.baseUrl + "login")
-                .post(requestBody)
-                .build();
-        Response response = null;
-        try {
-            response = client.newCall(request).execute();
-        } catch (IOException e) {
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("userName", userNameTxt)
+                        .add("password", passwordTxt)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(Util.baseUrl + "login")
+                        .post(requestBody)
+                        .build();
+                Response response;
+                String responseDate;
+                try {
+                    response = client.newCall(request).execute();
+                    responseDate = response.body().string();
+                    JSONObject res = JSON.parseObject(responseDate);
+                    String status = res.getString("status");
+                    Message msg = new Message();
+                    if("0".equals(status)){
+                        //登陆成功
+                        msg.what = 0;
+                        String token = res.getString("token");
+                        Status.token = token;
+                    }else{
+                        msg.what = 1;
+                    }
+                    Bundle data = new Bundle();
+                    data.putString("res",responseDate);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                } catch (IOException e) {
+                    Message msg = new Message();
+                    msg.what = 100;
+                    handler.sendMessage(msg);
+                }
 
-        }
-        String responseDate = null;
-        try {
-            responseDate = response.body().string();
-        } catch (IOException e) {
-            //TODO
-        }
-        JSONObject res = JSON.parseObject(responseDate);
-        String status = res.getString("status");
-        if(Status.OK.equals(status)){
-            String token = res.getString("token");
-            Status.token = token;
-//            new SharedPreferencesUtil(getActivity(), "data").putValues(new SharedPreferencesUtil.ContentValue("token", res.getString("token")));
-            Message msg = new Message();
-            Bundle data = new Bundle();
-            data.putString("status",status);
-            msg.setData(data);
-            handler.sendMessage(msg);
-        }else{
-            //TODO
-        }
+            }
+        }).start();
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -1,10 +1,14 @@
 package com.bishe.qiao.bishe.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.model.MyComment;
 import com.bishe.qiao.bishe.myadapter.ItemMyCommentAdapter;
@@ -15,42 +19,49 @@ import java.util.Date;
 import java.util.List;
 
 public class MyCommentActivity extends BaseActivity {
+    public static String res;
     private List<MyComment> myComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_comment);
+        Intent intent = getIntent();
+        res = intent.getStringExtra("res");
         initMyComments();
-        Log.d("MMMMMMMMMMM", "33333");
         RecyclerView recyclerView = findViewById(R.id.activity_my_comment_recycler_view);
-        Log.d("MMMMMMMMMMM", "444444");
         GridLayoutManager manager = new GridLayoutManager(this, 1);
-        Log.d("MMMMMMMMMMM", "55555");
         recyclerView.setLayoutManager(manager);
-        Log.d("MMMMMMMMMMM", "666666");
         ItemMyCommentAdapter adapter = new ItemMyCommentAdapter(myComments);
-        Log.d("MMMMMMMMMMM", "777777777");
         recyclerView.setAdapter(adapter);
-        Log.d("MMMMMMMMMMM", "9999999");
+
+        Toolbar toolbar = findViewById(R.id.my_comment_toolbar);
+        //设置toolbar
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true); //设置返回键可用
+            actionBar.setTitle("我的评论");
+        }
     }
 
     private void initMyComments(){
-        Log.d("MMMMMMMMMMM", "111111");
+        JSONArray jarr = JSONObject.parseObject(res).getJSONArray("comments");
         myComments = new ArrayList<>();
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
-        for(int i =0; i < 10; i++){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for(int i =0; i < jarr.size(); i++){
             MyComment myComment = new MyComment();
-            myComment.setStars(3);
-            myComment.setAuthor("张三");
-            myComment.setBookName("斗破苍穹");
-            myComment.setBookUrl("http://book.img.ireader.com/group6/M00/09/57/CmRaIVeXHBaEMHRQAAAAAB6XPRk644055113.jpg?v=eJoHXyw7&t=CmRaIVv3rXw.");
+            JSONObject jobj = jarr.getJSONObject(i);
+            Date date = new Date(jobj.getLong("commentTime"));
+            myComment.setStars(Integer.valueOf(jobj.getString("stars")));
+            myComment.setAuthor(jobj.getString("author"));
+            myComment.setBookName(jobj.getString("bookName"));
+            myComment.setBookUrl(jobj.getString("profileUrl"));
             myComment.setCommentTime(simpleDateFormat.format(date));
-            myComment.setContent("评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论");
+            myComment.setContent(jobj.getString("content"));
+            myComment.setPublish(jobj.getString("publishingHouse"));
             myComments.add(myComment);
         }
-
-        Log.d("MMMMMMMMMMM", "22222222");
     }
 }

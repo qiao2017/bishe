@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,11 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bishe.qiao.bishe.R;
-import com.bishe.qiao.bishe.util.MyApplication;
 import com.bishe.qiao.bishe.util.Status;
 import com.bishe.qiao.bishe.util.Util;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -26,7 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CommentActivity extends BaseActivity {
-    int bookId;
+    public static int bookId;
     public static final int UPDATE_TEXT_0 = 0;
     public static final int UPDATE_TEXT_1 = 1;
     public static final int UPDATE_TEXT_2 = 2;
@@ -62,6 +63,12 @@ public class CommentActivity extends BaseActivity {
                 case 100:
                     closeProgressDialog();
                     finish();
+                case 999:
+                    closeProgressDialog();
+                    Bundle data = msg.getData();
+                    String res = data.getString("res", null);
+                    Toast.makeText(CommentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
             }
         }
@@ -71,7 +78,7 @@ public class CommentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         Intent intent = getIntent();
-        bookId = intent.getIntExtra("bookId", 0);
+        bookId = Integer.valueOf(intent.getStringExtra("bookId"));
         ratingBar = findViewById(R.id.comment_rating_bar);
         textView = findViewById(R.id.comment_rating_bar_text);
         editText  = findViewById(R.id.comment_edit_text);
@@ -93,14 +100,17 @@ public class CommentActivity extends BaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MyApplication.getContext(), "已提交评论", Toast.LENGTH_SHORT).show();
                 showProgressDialog();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String text = textView.getText().toString();
+                        String text = editText.getText().toString();
+                        Log.e("NNNNNNNN", text);
                         try {
-                            OkHttpClient client = new OkHttpClient();
+                            OkHttpClient client = new OkHttpClient.Builder()
+                                    .readTimeout(5 * 60 * 1000, TimeUnit.SECONDS)
+                                    .writeTimeout(5 * 60 * 1000, TimeUnit.SECONDS)
+                                    .connectTimeout(5 * 60 * 1000, TimeUnit.SECONDS).build();
                             RequestBody requestBody = new FormBody.Builder()
                                     .add("bookId", String.valueOf(bookId))
                                     .add("content", text)
@@ -111,25 +121,25 @@ public class CommentActivity extends BaseActivity {
                                     .url(Util.baseUrl + "addComment")
                                     .post(requestBody)
                                     .build();
-                            Response response = null;
-                            try {
-                                response = client.newCall(request).execute();
-                            } catch (IOException e) {
-
-                            }
-                            String responseDate = null;
-                            try {
-                                responseDate = response.body().string();
-                            } catch (IOException e) {
-                                //TODO
-                            }
+                            Response response;
                             Message message = new Message();
                             Bundle data = new Bundle();
+                            String responseDate;
+                            try {
+                                response = client.newCall(request).execute();
+                                responseDate = response.body().string();
+                                message.what = 999;
+                                data.putString("res",responseDate);
+                                message.setData(data);
+                                handler.sendMessage(message);
+                            } catch (IOException e) {
+                                message.what = 100;
+                                handler.sendMessage(message);
+                            }
+                        } catch (Exception e) {
+                            Message message = new Message();
                             message.what = 100;
-                            data.putString("responseDate",responseDate);
-                            message.setData(data);
-                            handler.sendMessage(message);
-                        } catch (Exception e) { }
+                            handler.sendMessage(message);}
                     }
                 }).start();
             }
@@ -139,7 +149,7 @@ public class CommentActivity extends BaseActivity {
     protected void showProgressDialog(){
         if(progressDialog == null){
             progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("正在加载···");
+            progressDialog.setMessage("评论提交中···");
             progressDialog.setCanceledOnTouchOutside(false);
         }
         progressDialog.show();

@@ -34,21 +34,16 @@
                 android:id="@+id/comment_rating_bar_text"
                 android:text="一般"/>
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/dividers"/>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:layout_marginTop="10dp"
         android:padding="20dp"
         android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <EditText
+            android:background="#00ffffff"
             android:id="@+id/comment_edit_text"
             android:hint="评论"
             android:layout_width="match_parent"

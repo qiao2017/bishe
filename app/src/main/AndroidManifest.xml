@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.LoginRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,9 @@
             android:theme="@style/BookDetailActivityTheme" />
         <activity android:name=".activity.BookCommentAllActivity" />
         <activity android:name=".activity.CommentActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.RecommentAcitvity" />
+        <activity android:name=".activity.MyBrowseActivity"></activity>
     </application>
 
 </manifest>

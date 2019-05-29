@@ -2,24 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_call"
-            android:icon="@drawable/menu"
-            android:title="Call"/>
+            android:id="@+id/nav_my_favorite"
+            android:icon="@drawable/star_tag"
+            android:title="我的收藏"/>
         <item
-            android:id="@+id/nav_friends"
-            android:icon="@drawable/menu"
-            android:title="Call"/>
+            android:id="@+id/nav_my_comments"
+            android:icon="@drawable/comment"
+            android:title="我的评论"/>
         <item
-            android:id="@+id/nav_friends1"
-            android:icon="@drawable/menu"
-            android:title="Call"/>
+            android:id="@+id/nav_my_recomment"
+            android:icon="@drawable/recomment"
+            android:title="我的个性推荐"/>
         <item
-            android:id="@+id/nav_call1"
-            android:icon="@drawable/menu"
-            android:title="Call"/>
-        <item
-            android:id="@+id/nav_call2"
-            android:icon="@drawable/menu"
-            android:title="Call"/>
+            android:id="@+id/nav_my_browse"
+            android:icon="@drawable/history"
+            android:title="我的浏览记录"/>
     </group>
 </menu>

@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.model.ListBook;
 import com.bishe.qiao.bishe.myadapter.BookAdapter;
@@ -19,14 +21,16 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private List<ListBook> bookList = new ArrayList<>();
+    public static String res;
 //    private List<Book> bookList = new ArrayList<>();
-    private String bookUrl = "http://book.img.ireader.com/group6/M00/07/A8/CmQUN1usd9-ECydsAAAAAP3oY4M872146629.jpg?v=94TE-RrC&t=CmQUN1usePY.";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_main_home, container, false);
-        initBooks();
+        Bundle bundle = getArguments();
+        res = bundle.getString("message");
+        initBooks(res);
         RecyclerView recyclerView = view.findViewById(R.id.fragment_main_home_recycler_view);
         BookAdapter adapter = new BookAdapter(bookList);
         recyclerView.setAdapter(adapter);
@@ -39,17 +43,23 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    
-    private void initBooks(){
+    private void initBooks(String res){
         bookList.clear();
-        for(int i = 0; i<50; i++){
+        JSONArray jarr = JSONArray.parseArray(res);
+        for(int i = 0; i<jarr.size(); i++){
             ListBook book = new ListBook();
-            book.setAuthor("张三");
-            book.setBookScore("3.5");
-            book.setBookHeadUrl("http://bookbk.img.ireader.com/group6/M00/BB/CD/CmQUNlhGaf6ENNp0AAAAAMjGF3s094589847.jpg?v=RxWOQZ7V");
-            book.setBookName("斗破苍穹");
-            book.setContent("CCCCCCCC简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介");
-            book.setPublish("PPPPPPPPPPPPP");
+            JSONObject jobjBook = JSONObject.parseObject(jarr.getString(i));
+            book.setAuthor(jobjBook.getString("author"));
+            String score = jobjBook.getString("avgScore");
+            score = score == null ? "1.0" : score;
+            book.setBookScore(score);
+            book.setBookId(jobjBook.getInteger("bookId"));
+            book.setPublish(jobjBook.getString("publishingHouse"));
+            String profileUrl = jobjBook.getString("profileUrl");
+            profileUrl = profileUrl == null ? "null" : profileUrl;
+            book.setBookHeadUrl(profileUrl);
+            book.setBookName(jobjBook.getString("bookName"));
+            book.setContent(jobjBook.getString("content"));
             bookList.add(book);
         }
     }

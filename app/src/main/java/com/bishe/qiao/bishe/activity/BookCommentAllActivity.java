@@ -1,32 +1,23 @@
 package com.bishe.qiao.bishe.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.bishe.qiao.bishe.R;
 import com.bishe.qiao.bishe.fragment.BookCommentAllFragment;
 
 public class BookCommentAllActivity extends BaseActivity {
-    LinearLayout linearLayoutLeft;
-    LinearLayout linearLayoutAll;
-    LinearLayout linearLayoutRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_comment_all);
-
-        linearLayoutLeft = findViewById(R.id.fragment_book_comment_left);
-        linearLayoutAll = findViewById(R.id.fragment_book_comment_all);
-        linearLayoutRight = findViewById(R.id.fragment_book_comment_right);
-        linearLayoutLeft.setVisibility(View.GONE);
-        Log.e("MMMMMMMMM", "Hello");
-        replaceFragment(BookCommentAllFragment.newInstance("Hello"));
+        Intent intent = getIntent();
+        String res = intent.getStringExtra("res");
+        replaceFragment(BookCommentAllFragment.newInstance(res));
     }
 
     private void replaceFragment(Fragment fragment){
